@@ -3,6 +3,19 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import TableView from "./TableView";
 import Loading from "./Loading";
+import useGetCoinsData from "../utils/useGetCoinsData"
+
+
+
+const url: string = "https://api.coingecko.com/api/v3/coins/markets";
+
+const queryParams: QueryParams = {
+  vs_currency: "usd",
+  order: "market_cap_desc",
+  per_page: 10,
+  page: 1,
+  sparkline: false,
+};
 
 export interface CoinData {
   id: string;
@@ -45,9 +58,10 @@ export interface CoinsData {
   coinsData: CoinData[];
 }
 
-const View: FC<CoinsData> = ({ coinsData }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [coins, setCoins] = useState<CoinData[]>([...coinsData]);
+const View: FC = () => {
+  
+  // const [loading, setLoading] = useState<boolean>(false);
+  // const [coins, setCoins] = useState<CoinData[]>([...coinsData]);
   const [order, setOrder] = useState<string>("_desc");
   const [orderby, setOrderby] = useState<string>("market_cap");
   const [queryP, setQueryP] = useState<QueryParams>({
@@ -57,35 +71,36 @@ const View: FC<CoinsData> = ({ coinsData }) => {
     page: 1,
     sparkline: false,
   });
+  const {coinsData, error, loading} = useGetCoinsData(url, queryP);
 
-  useEffect(() => {
-    if (!coins.length) {
-      getCoinData(queryP);
-    }
-  }, [queryP]);
+  // useEffect(() => {
+  //   // if (!coinsData) {
+  //   //   getCoinData(queryP);
+  //   // }
+  // }, [queryP]);
 
-  const getCoinData = (queryP: QueryParams) => {
-    axios
-    .get(`https://api.coingecko.com/api/v3/coins/markets`, {
-      params: {
-        ...queryP,
-      },
-    })
-    .then((res) => {
-      console.log(queryP);
-      setLoading(false);
-      setCoins(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  console.log("EUSE->");
-  }
+  // const getCoinData = (queryP: QueryParams) => {
+  //   axios
+  //     .get(`https://api.coingecko.com/api/v3/coins/markets`, {
+  //       params: {
+  //         ...queryP,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(queryP);
+  //       // setLoading(false);
+  //       // setCoins(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   console.log("EUSE->");
+  // };
 
   // console.log(coins);
   const handleParams = (ind: keyof QueryParams, value: any): void => {
-    setLoading(true);
-    setCoins([]);
+    // setLoading(true);
+    // setCoins([]);
     setQueryP({ ...queryP, [ind]: value });
   };
   return (
@@ -130,11 +145,12 @@ const View: FC<CoinsData> = ({ coinsData }) => {
         </select>
       </div>
       <div>
-        {loading ? <Loading/> : <TableView coins={coins} queryP={queryP} />}
+        {loading ? <Loading /> : <TableView coins={coinsData} queryP={queryP} />}
       </div>
       <div className={styles.pagination_div}>
         <div className={styles.pages_div}>
           <button
+            className={styles.paginate_buttons}
             disabled={queryP.page <= 1}
             onClick={() => {
               handleParams("page", queryP.page - 1);
@@ -143,7 +159,10 @@ const View: FC<CoinsData> = ({ coinsData }) => {
             Prev
           </button>
           {queryP.page}
-          <button onClick={() => handleParams("page", queryP.page + 1)}>
+          <button
+            className={styles.paginate_buttons}
+            onClick={() => handleParams("page", queryP.page + 1)}
+          >
             Next
           </button>
         </div>

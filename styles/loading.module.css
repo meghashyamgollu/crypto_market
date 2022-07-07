@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: rgb(0, 9, 52);
 }
 .wave {
   width: 5px;

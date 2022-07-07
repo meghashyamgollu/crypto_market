@@ -19,7 +19,7 @@ const TableView: FC <Coins> = ({coins, queryP}) => {
                         <th>Name</th>
                         <th>Price ({queryP.vs_currency.toUpperCase()})</th>
                         <th>Market Cap</th>
-                        <th>24 hr Change</th>
+                        <th>24 hr Change ({queryP.vs_currency.toUpperCase()})</th>
                         <th>24 hr High</th>
                         <th>Volume</th>
                     </tr>
@@ -32,7 +32,7 @@ const TableView: FC <Coins> = ({coins, queryP}) => {
                             <td>{coin.name}</td>
                             <td>{coin.current_price}</td>
                             <td>{coin.market_cap}</td>
-                            <td style={coin.price_change_24h > 0 ? {color: "green"} : {color: "red"}}>{coin.price_change_24h}</td>
+                            <td style={coin.price_change_24h > 0 ? {color: "green"} : {color: "red"}}>{coin.price_change_24h ? coin.price_change_24h.toFixed(2) : null}</td>
                             <td>{coin.high_24h}</td>
                             <td>{coin.total_volume}</td>
                         </tr>

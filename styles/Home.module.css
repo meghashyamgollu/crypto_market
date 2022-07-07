@@ -34,3 +34,10 @@
   justify-content: center;
 }
 
+.paginate_buttons{
+  margin: 0 25px;
+  padding: 0.5% 1%;
+  border-radius: 1%;
+  background-color: aqua;
+}
+
