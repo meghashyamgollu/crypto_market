@@ -3,9 +3,9 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import TableView from "./TableView";
 import Loading from "./Loading";
-import useGetCoinsData from "../utils/useGetCoinsData"
-
-
+import useGetCoinsData from "../utils/useGetCoinsData";
+import Price from "./LineChart";
+import Search from "./SearchTable";
 
 const url: string = "https://api.coingecko.com/api/v3/coins/markets";
 
@@ -44,6 +44,7 @@ export interface CoinData {
   atl_date: Date;
   roi: any;
   last_updated: Date;
+  sparkline_in_7d: any;
 }
 
 export type QueryParams = {
@@ -59,95 +60,47 @@ export interface CoinsData {
 }
 
 const View: FC = () => {
-  
-  // const [loading, setLoading] = useState<boolean>(false);
-  // const [coins, setCoins] = useState<CoinData[]>([...coinsData]);
-  const [order, setOrder] = useState<string>("_desc");
-  const [orderby, setOrderby] = useState<string>("market_cap");
+  const [sort, setSort] = useState<string>("market_cap_desc");
   const [queryP, setQueryP] = useState<QueryParams>({
     vs_currency: "usd",
-    order: `${orderby}${order}`,
+    order: sort,
     per_page: 10,
     page: 1,
-    sparkline: false,
+    sparkline: true,
   });
-  const {coinsData, error, loading} = useGetCoinsData(url, queryP);
+  const { coinsData, error, loading } = useGetCoinsData(url, queryP);
 
-  // useEffect(() => {
-  //   // if (!coinsData) {
-  //   //   getCoinData(queryP);
-  //   // }
-  // }, [queryP]);
-
-  // const getCoinData = (queryP: QueryParams) => {
-  //   axios
-  //     .get(`https://api.coingecko.com/api/v3/coins/markets`, {
-  //       params: {
-  //         ...queryP,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(queryP);
-  //       // setLoading(false);
-  //       // setCoins(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   console.log("EUSE->");
-  // };
-
-  // console.log(coins);
   const handleParams = (ind: keyof QueryParams, value: any): void => {
-    // setLoading(true);
-    // setCoins([]);
     setQueryP({ ...queryP, [ind]: value });
   };
+
   return (
     <div>
-      <div className={styles.filters_div}>
-        <select
-          value={queryP.vs_currency}
-          name="vs_currency"
-          id="vs_currency"
-          onChange={(e) => handleParams("vs_currency", e.target.value)}
-        >
-          <option value="inr">INR</option>
-          <option value="usd">USD</option>
-          <option value="eur">EUR</option>
-          <option value="jpy">JPY</option>
-        </select>
-        <select
-          name="sort_order"
-          id="sort_order"
-          value={order}
-          onChange={(e) => {
-            setOrder(e.target.value);
-            handleParams("order", `${orderby}${e.target.value}`);
-          }}
-        >
-          <option value="_asc">Ascending</option>
-          <option value="_desc">Descending</option>
-        </select>
-        <select
-          name="sort_by"
-          id="sort_by"
-          value={orderby}
-          onChange={(e) => {
-            setOrderby(e.target.value);
-            handleParams("order", `${e.target.value}${order}`);
-          }}
-        >
-          <option value="id">Alpabetical</option>
-          <option value="volume">Volume</option>
-          <option value="market_cap">Market Cap</option>
-          <option value="price_change_24h">24 hr Change</option>
-        </select>
-      </div>
       <div>
-        {loading ? <Loading /> : <TableView coins={coinsData} queryP={queryP} />}
+        {loading ? (
+          <Loading />
+        ) : (
+          <TableView
+            handleParams={handleParams}
+            coins={coinsData}
+            queryP={queryP}
+          />
+        )}
       </div>
       <div className={styles.pagination_div}>
+        <div>
+          <select
+            className={styles.perpage_select}
+            name="vs_currency"
+            id="vs_currency"
+            onChange={(e) => handleParams("vs_currency", e.target.value)}
+          >
+            <option value="usd">USD</option>
+            <option value="inr">INR</option>
+            <option value="eur">EUR</option>
+            <option value="jpy">JPY</option>
+          </select>
+        </div>
         <div className={styles.pages_div}>
           <button
             className={styles.paginate_buttons}
@@ -158,7 +111,7 @@ const View: FC = () => {
           >
             Prev
           </button>
-          {queryP.page}
+          <b>{queryP.page}</b>
           <button
             className={styles.paginate_buttons}
             onClick={() => handleParams("page", queryP.page + 1)}
@@ -166,17 +119,19 @@ const View: FC = () => {
             Next
           </button>
         </div>
-        <div className={styles.perpage_div}></div>
-        <select
-          value={queryP.per_page}
-          name="per_page"
-          id="per_page"
-          onChange={(e) => handleParams("per_page", Number(e.target.value))}
-        >
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={10}>10</option>
-        </select>
+        <div className={styles.perpage_div}>
+          <select
+            className={styles.perpage_select}
+            value={queryP.per_page}
+            name="per_page"
+            id="per_page"
+            onChange={(e) => handleParams("per_page", Number(e.target.value))}
+          >
+            <option value={6}>6</option>
+            <option value={8}>8</option>
+            <option value={10}>10</option>
+          </select>
+        </div>
       </div>
     </div>
   );

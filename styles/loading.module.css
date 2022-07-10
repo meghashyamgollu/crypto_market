@@ -4,11 +4,14 @@
   justify-content: center;
   align-items: center;
   background: rgb(0, 9, 52);
+  background-image: url(https://wallpapercave.com/wp/wp3624600.jpg);
+  background-position: center;
+  /* background-size: auto; */
 }
 .wave {
   width: 5px;
   height: 100px;
-  background: linear-gradient(45deg, cyan, #fff);
+  background: linear-gradient(45deg, rgb(27, 58, 71), rgb(46, 186, 208));
   margin: 10px;
   animation: wave 1s linear infinite;
   border-radius: 20px;

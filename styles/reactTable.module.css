@@ -1,0 +1,102 @@
+.test_table{
+    margin: 2% 10% 0% 10%!important;
+    /* width: 80%; */
+    /* height: 100vh; */
+}
+
+.table_view_header{
+    /* background-color: rgb(127, 81, 81); */
+    /* #5e17eb */
+    /* #8143fd */
+    /* background-image: url(https://img.freepik.com/premium-vector/golden-bitcoin-blockchain-technology-3d-concept-suitable-future-technology-banner-cover_384372-81.jpg?w=1380); */
+    background-image: linear-gradient(to right, #5e17eb 0%, #8143fd 100%);
+    background-position: center;
+    background-size: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5% 2%;
+    height: 90px;
+}
+
+.search_div{
+    padding: auto;
+    margin: auto 2%;
+    width: 20%;
+}
+
+.search_div input{
+    border-radius: 20px 0px 0px 20px;
+    height: 40px;
+    background-color: beige;
+    padding: 2px 20px;
+    border: none;
+    outline: none;
+    width: 150px;
+}
+
+.search_div button{
+    border-radius: 0px 20px 20px 0px;
+    height: 40px;
+    background-color: wheat;
+    border: none;
+    outline: none;
+    padding: 2px 20px;
+    cursor: pointer;
+}
+
+.filter_main_div{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 80%;
+}
+
+.filter_main_div select{
+    border-radius: 20px;
+    height: 40px;
+    background-color: beige;
+    padding: 2px 20px;
+    margin: 0% 1%;
+    border: none;
+    outline: none;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+
+.filter_select_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2%;
+    width: 80%;
+}
+
+.filter_select_div h3{
+    line-height: 40px;
+    padding: 0px 20px;
+    margin: auto;
+    background-color: beige;
+    color: black;
+    border-radius: 20px;
+}
+
+.range_main{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    width: 80%;
+    height: 40px;
+    padding: auto;
+}
+
+.range_main button{
+    border-radius: 0px 20px 20px 0px;
+    height: 40px;
+    background-color: wheat;
+    border: none;
+    outline: none;
+    padding: 2px 20px;
+    cursor: pointer;
+}
+
+

@@ -1,5 +1,8 @@
 .container {
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
+  height: 100vh;
+  background-color: rgb(0, 9, 52);
+  background-image: url(https://wallpapercave.com/wp/wp3624600.jpg);
 }
 
 .filters_div{
@@ -7,37 +10,94 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 2% 0;
+  padding: 1% 0;
 }
 
 .table_div{
-  margin: auto 2%;
+  margin: 0% 2%;
+  padding: 2% 0% 0% 0%;
+}
+
+.table_main{
+  border-spacing: 0px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .table_head th{
   width: 14%;
   text-align: left;
+  padding: 0.5%;
+  padding-left: 1%;
+}
+
+.table_head th:first-child{
+  width: 6%;
+}
+
+.table_head th:nth-child(even){
+  width: 10%;
+}
+
+.table_head th:last-child{
+  width: 15%;
+}
+
+.table_head th span{
+  color: gold;
+}
+
+.table_head tr{
+  /* background-color: rgb(27, 23, 61); */
+  background-color: rgba(32, 37, 63, 0.927);
+}
+
+.table_body{
+  margin: auto 2%;
+}
+.table_body tr{
+  background-color: rgba(29, 28, 28, 0.968);
+}
+/* .table_body tr:nth-child(even){
+  background-color: rgb(27, 23, 61);
+}
+
+.table_body tr:nth-child(odd){
+  background-color: rgb(51, 68, 68);
+} */
+
+.table_body tr td{
+  padding: 0.45%;
+  padding-left: 1%;
 }
 
 .pagination_div{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1% 0;
+  padding: 1% 1%;
 }
 
 .pages_div{
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .paginate_buttons{
   margin: 0 25px;
   padding: 0.5% 1%;
+  border-radius: 20px;
+  background-color: aqua;
+  border: none;
+  outline: none;
+}
+.perpage_select{
+  margin: 0 25px;
+  padding: 0.5% 10px;
   border-radius: 1%;
   background-color: aqua;
+  height: 30px;
 }
 
